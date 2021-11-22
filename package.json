@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "homepage": "http://Frizeee.github.io/stock-predictor",
+  "homepage": "http://frizeee.github.io/stock-predictor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
