@@ -19,7 +19,7 @@ class DragDrop extends React.Component {
       //send JSON stock data to TorchServe image
       fetch(Settings[0].ip, {
         method: 'POST',
-        credentials: 'inculde',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
