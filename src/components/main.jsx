@@ -108,7 +108,7 @@ class Main extends React.Component {
               </div>
               {this.state.server_disabled && (
                 <button
-                  className="btn btn-sm p-2"
+                  className="btn btn-sm p-2 pred-btn"
                   onClick={this.checkConnection}
                 >
                   RETRY
