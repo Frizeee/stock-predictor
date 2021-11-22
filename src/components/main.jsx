@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import DragDrop from './dragdrop';
 import Loading from './loading';
 import Chart from './chart';
-import { Button } from 'bootstrap';
+import Tick from './images/checkmark.png';
+import Cross from './images/cross.png';
+import Settings from './config.json';
 
 class Main extends React.Component {
   state = {
@@ -11,6 +13,7 @@ class Main extends React.Component {
     responseArrived: false,
     preds: null,
     uploaded_data: null,
+    server_disabled: true,
   };
 
   constructor(props) {
@@ -19,6 +22,7 @@ class Main extends React.Component {
     this.toggleResponseArrived = this.toggleResponseArrived.bind(this);
     this.toggleReset = this.toggleReset.bind(this);
     this.toggleFileUploaded = this.toggleFileUploaded.bind(this);
+    this.checkConnection = this.checkConnection.bind(this);
   }
 
   toggleWaitingForResponse() {
@@ -57,6 +61,27 @@ class Main extends React.Component {
     });
   }
 
+  checkConnection() {
+    fetch(Settings[0].ping_ip, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        this.setState({ server_disabled: false });
+        console.log(response);
+      } else {
+        this.setState({ server_disabled: true });
+        console.log(this.state.server_disabled);
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.checkConnection();
+  }
+
   render() {
     return (
       <div className="px-3">
@@ -64,12 +89,31 @@ class Main extends React.Component {
           !this.state.waitingResponse &&
           !this.state.responseArrived && (
             <React.Fragment>
-              <h1 className="m-5">Drop some stock data!</h1>
+              <h1 className="m-5 p-2">Drop some stock data!</h1>
               <DragDrop
                 waitingForResponse={this.toggleWaitingForResponse}
                 responseArrived={this.toggleResponseArrived}
                 uploadedFile={this.toggleFileUploaded}
+                serverStatus={this.state.server_disabled}
               />
+              <div className="d-flex flex-row justify-content-center align-items-center m-2">
+                <div className="p-1">Server status:</div>
+
+                <img
+                  src={this.state.server_disabled ? Cross : Tick}
+                  className="d-flex p-1 justify-content-center align-items-center"
+                  width="26"
+                  height="26"
+                />
+              </div>
+              {this.state.server_disabled && (
+                <button
+                  className="btn btn-sm p-2"
+                  onClick={this.checkConnection}
+                >
+                  RETRY
+                </button>
+              )}
             </React.Fragment>
           )}
         {!this.state.waitingUpload &&

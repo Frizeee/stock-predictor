@@ -2,6 +2,7 @@
   {  
     "pred_len": 5,
     "display_len": 67,
+    "ping_ip": "http://80.99.23.40:8443/predictions/stockpredictor",
     "ip": "https://cors-proxy.htmldriven.com/?url=http://80.99.23.40:8443/predictions/stockpredictor"
   }
 ]

@@ -41,6 +41,7 @@ class DragDrop extends React.Component {
         types={fileTypes}
         hoverTitle="Drop here!"
         minSize={0}
+        disabled={this.props.serverStatus}
       />
     );
   }
