@@ -73,6 +73,8 @@ class Main extends React.Component {
         console.log(data);
         if (data.status === 'Healthy') {
           this.setState({ server_disabled: false });
+        } else {
+          this.setState({ server_disabled: true });
         }
       });
   }
