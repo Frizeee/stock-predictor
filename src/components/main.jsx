@@ -67,15 +67,14 @@ class Main extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
-      if (response.status === 200) {
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === 'Healthy') {
+        }
         this.setState({ server_disabled: false });
-        console.log(response);
-      } else {
-        this.setState({ server_disabled: true });
-        console.log(this.state.server_disabled);
-      }
-    });
+      });
   }
 
   componentDidMount() {
